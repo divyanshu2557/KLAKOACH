@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Klakoach — Curated Artisan Collection</title>
+  <meta name="description" content="Discover handcrafted Indian artisan treasures — brass diyas, Madhubani paintings, Kashmiri carpets, and more. A royal vintage catalog of premium ethnic decor." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+
+  <!-- ═══════════ SCROLL PROGRESS BAR ═══════════ -->
+  <div id="scroll-progress" class="scroll-progress"></div>
+
+  <!-- ═══════════ CURSOR GLOW (desktop only) ═══════════ -->
+  <div id="cursor-glow" class="cursor-glow"></div>
+
+  <!-- ═══════════ PRELOADER ═══════════ -->
+  <div id="preloader" class="preloader">
+    <div class="preloader-inner">
+      <div class="logo-brand-wrap preloader-wrap">
+        <img src="WhatsApp_Image_2026-04-08_at_1.22.18_PM-removebg-preview.png" alt="Klakoach" class="logo-img preloader-logo">
+        <span class="logo-text">Klakoach</span>
+      </div>
+      <div class="preloader-sub">Loading Collection</div>
+      <div class="preloader-bar"><div class="preloader-bar-fill"></div></div>
+    </div>
+  </div>
+
+  <!-- ═══════════ HEADER / NAV ═══════════ -->
+  <header id="site-header" class="site-header">
+    <div class="header-inner">
+      <div class="logo-brand-wrap header-wrap">
+        <img src="WhatsApp_Image_2026-04-08_at_1.22.18_PM-removebg-preview.png" alt="Klakoach" class="logo-img header-logo-img">
+        <h1 class="logo-text header-text">Klakoach</h1>
+      </div>
+      <p class="header-tagline">Est. Antiquity · Curated Artisan Treasures</p>
+    </div>
+    <nav id="main-nav" class="main-nav">
+      <button class="nav-btn active" data-category="all">All Collections</button>
+    </nav>
+  </header>
+
+  <!-- ═══════════ HERO ═══════════ -->
+  <section id="hero" class="hero">
+    <canvas id="hero-particles" class="hero-particles"></canvas>
+    <div class="hero-overlay"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-content">
+      <div class="hero-ornament-top">
+        <span class="orn-left">❧</span>
+        <span class="orn-diamond">✦</span>
+        <span class="orn-right">❧</span>
+      </div>
+      <h2 class="hero-title">Curated Treasures of<br/><span class="hero-accent">Timeless Elegance</span></h2>
+      <p class="hero-subtitle">Handcrafted artefacts from the finest artisans — each piece carrying centuries of heritage, designed for the connoisseur of beauty.</p>
+      <div class="hero-ornament-bottom">
+        <span class="orn-line"></span>
+        <span class="orn-diamond">✦</span>
+        <span class="orn-line"></span>
+      </div>
+      <a href="#catalog" class="hero-cta">
+        <span class="cta-text">Explore the Collection</span>
+        <span class="cta-shine"></span>
+      </a>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>Scroll</span>
+      <div class="scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ═══════════ STAT BAR ═══════════ -->
+  <section class="stat-bar" id="stat-bar">
+    <div class="stat" data-target-count>
+      <span class="stat-number" id="stat-items">0</span>
+      <span class="stat-label">Artefacts</span>
+    </div>
+    <div class="stat-divider">⟡</div>
+    <div class="stat" data-target-count>
+      <span class="stat-number" id="stat-categories">0</span>
+      <span class="stat-label">Collections</span>
+    </div>
+    <div class="stat-divider">⟡</div>
+    <div class="stat">
+      <span class="stat-number" id="stat-artisans">150+</span>
+      <span class="stat-label">Artisans</span>
+    </div>
+    <div class="stat-divider">⟡</div>
+    <div class="stat">
+      <span class="stat-number">100%</span>
+      <span class="stat-label">Handcrafted</span>
+    </div>
+  </section>
+
+  <!-- ═══════════ HERITAGE SECTION ═══════════ -->
+  <section class="heritage-section" id="heritage">
+    <div class="heritage-inner">
+      <div class="heritage-col reveal-on-scroll">
+        <div class="heritage-icon">🏛️</div>
+        <h3 class="heritage-title">Heritage</h3>
+        <p class="heritage-desc">Every piece in our collection carries the legacy of generations of artisans, preserving techniques passed down through centuries.</p>
+      </div>
+      <div class="heritage-divider-v reveal-on-scroll"></div>
+      <div class="heritage-col reveal-on-scroll">
+        <div class="heritage-icon">✋</div>
+        <h3 class="heritage-title">Handcrafted</h3>
+        <p class="heritage-desc">No machines, no shortcuts. Each artefact is shaped by skilled hands, ensuring uniqueness in every curve and texture.</p>
+      </div>
+      <div class="heritage-divider-v reveal-on-scroll"></div>
+      <div class="heritage-col reveal-on-scroll">
+        <div class="heritage-icon">👁️</div>
+        <h3 class="heritage-title">Curated</h3>
+        <p class="heritage-desc">Our experts travel across India to handpick only the finest pieces that meet our exacting standards of beauty and craftsmanship.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════ CATEGORY SHOWCASE ═══════════ -->
+  <section class="category-showcase" id="category-showcase">
+    <div class="section-header">
+      <div class="section-ornament">✦</div>
+      <h2 class="section-title">Explore by Collection</h2>
+      <p class="section-subtitle">Discover our carefully assembled categories of artisan mastery</p>
+      <div class="section-ornament-line"></div>
+    </div>
+    <div id="category-cards" class="category-cards"></div>
+  </section>
+
+  <!-- ═══════════ CATALOG ═══════════ -->
+  <section id="catalog" class="catalog-section">
+    <div class="section-header">
+      <div class="section-ornament">✦</div>
+      <h2 class="section-title">The Grand Collection</h2>
+      <p class="section-subtitle">Browse our exquisite assemblage of artisan craftsmanship</p>
+      <div class="section-ornament-line"></div>
+    </div>
+
+    <!-- Search & Controls -->
+    <div class="catalog-controls">
+      <div class="search-wrapper">
+        <svg class="search-icon" viewBox="0 0 24 24" width="18" height="18"><circle cx="11" cy="11" r="7" fill="none" stroke="currentColor" stroke-width="2"/><line x1="16.5" y1="16.5" x2="21" y2="21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input type="text" id="search-input" class="search-input" placeholder="Search artefacts..." autocomplete="off" />
+        <button id="search-clear" class="search-clear" style="display:none;" aria-label="Clear search">&times;</button>
+      </div>
+      <div class="controls-right">
+        <div id="fav-filter-wrapper" class="fav-filter-wrapper">
+          <button id="fav-filter-btn" class="fav-filter-btn" title="Show Favorites">
+            <svg viewBox="0 0 24 24" width="20" height="20"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="currentColor"/></svg>
+            <span id="fav-count" class="fav-count">0</span>
+          </button>
+        </div>
+        <div class="view-toggle">
+          <button id="view-grid" class="view-btn active" title="Grid View">
+            <svg viewBox="0 0 24 24" width="20" height="20"><rect x="3" y="3" width="7" height="7" rx="1" fill="currentColor"/><rect x="14" y="3" width="7" height="7" rx="1" fill="currentColor"/><rect x="3" y="14" width="7" height="7" rx="1" fill="currentColor"/><rect x="14" y="14" width="7" height="7" rx="1" fill="currentColor"/></svg>
+          </button>
+          <button id="view-list" class="view-btn" title="List View">
+            <svg viewBox="0 0 24 24" width="20" height="20"><rect x="3" y="4" width="18" height="4" rx="1" fill="currentColor"/><rect x="3" y="10" width="18" height="4" rx="1" fill="currentColor"/><rect x="3" y="16" width="18" height="4" rx="1" fill="currentColor"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Category Filters (horizontal scroll on mobile) -->
+    <div id="category-filters" class="category-filters"></div>
+
+    <!-- Results count -->
+    <div class="results-info">
+      <span id="results-count">0</span> artefacts found
+    </div>
+
+    <!-- Product Grid -->
+    <div id="product-grid" class="product-grid"></div>
+
+    <!-- Load More -->
+    <div id="load-more-wrapper" class="load-more-wrapper" style="display:none;">
+      <button id="load-more-btn" class="load-more-btn">
+        <span class="load-more-text">Reveal More Treasures</span>
+        <span class="load-more-shine"></span>
+      </button>
+    </div>
+  </section>
+
+  <!-- ═══════════ PRODUCT MODAL ═══════════ -->
+  <div id="product-modal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-card">
+      <button id="modal-close" class="modal-close" aria-label="Close">&times;</button>
+      <button id="modal-prev" class="modal-nav modal-nav-prev" aria-label="Previous">‹</button>
+      <button id="modal-next" class="modal-nav modal-nav-next" aria-label="Next">›</button>
+      <div class="modal-image-wrapper">
+        <img id="modal-image" class="modal-image" src="" alt="" loading="lazy" />
+        <div class="modal-badge" id="modal-badge"></div>
+        <button id="modal-fav" class="modal-fav-btn" aria-label="Toggle Favorite">
+          <svg viewBox="0 0 24 24" width="22" height="22"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="currentColor"/></svg>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-ornament">✦</div>
+        <span class="modal-category" id="modal-category"></span>
+        <h3 class="modal-title" id="modal-title"></h3>
+        <p class="modal-description" id="modal-description"></p>
+        <div class="modal-ornament-line"></div>
+        <div class="modal-footer">
+          <span class="modal-id" id="modal-id"></span>
+          <button class="modal-star-cta" id="modal-star-cta">
+            <svg viewBox="0 0 24 24" width="20" height="20" class="cta-star-icon"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="currentColor"/></svg>
+            <span id="star-cta-text">Star this Product</span>
+            <span class="cta-shine"></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════ TOAST CONTAINER ═══════════ -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- ═══════════ FOOTER ═══════════ -->
+  <footer class="site-footer">
+    <div class="footer-top">
+      <div class="footer-col">
+        <div class="logo-brand-wrap footer-wrap">
+          <img src="WhatsApp_Image_2026-04-08_at_1.22.18_PM-removebg-preview.png" alt="Klakoach" class="logo-img footer-logo-img">
+          <span class="logo-text footer-text">Klakoach</span>
+        </div>
+        <p class="footer-tagline">Curated with reverence for heritage & artisanal mastery</p>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">Collections</h4>
+        <ul class="footer-links" id="footer-cat-links"></ul>
+      </div>
+      <div class="footer-col">
+        <h4 class="footer-heading">About</h4>
+        <ul class="footer-links">
+          <li><a href="#heritage">Our Heritage</a></li>
+          <li><a href="#catalog">Catalog</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col newsletter-col">
+        <h4 class="footer-heading">Quirey</h4>
+        <p class="newsletter-tag">Stay attuned to our latest treasures and stories.</p>
+        <form class="newsletter-form" id="newsletter-form">
+          <div class="newsletter-input-wrap">
+            <input type="email" class="newsletter-input" placeholder="Your artisan email" required>
+            <button type="submit" class="newsletter-submit-btn">
+              <span>Join</span>
+              <svg viewBox="0 0 24 24" width="16" height="16"><path d="M5 12h14m-7-7l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+          <p class="newsletter-disclaimer">By joining Quirey, you accept our privacy heritage.</p>
+        </form>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-line"></div>
+      <p class="footer-copy">&copy; 2026 Klakoach. All rights reserved. · Crafted with ♥ in India</p>
+    </div>
+  </footer>
+
+  <!-- ═══════════ BACK TO TOP ═══════════ -->
+  <button id="back-to-top" class="back-to-top" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 4l-8 8h5v8h6v-8h5z" fill="currentColor"/></svg>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>
