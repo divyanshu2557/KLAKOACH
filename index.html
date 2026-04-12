@@ -130,6 +130,17 @@
     <div id="category-cards" class="category-cards"></div>
   </section>
 
+  <!-- ═══════════ BESTSELLERS ═══════════ -->
+  <section id="bestsellers" class="bestsellers-section catalog-section" style="padding-bottom: 0;">
+    <div class="section-header">
+      <div class="section-ornament">✦</div>
+      <h2 class="section-title">Bestsellers</h2>
+      <p class="section-subtitle">Our most cherished artisan treasures</p>
+      <div class="section-ornament-line"></div>
+    </div>
+    <div id="bestseller-grid" class="product-grid" style="margin-top: 2rem;"></div>
+  </section>
+
   <!-- ═══════════ CATALOG ═══════════ -->
   <section id="catalog" class="catalog-section">
     <div class="section-header">
@@ -205,11 +216,18 @@
         <div class="modal-ornament-line"></div>
         <div class="modal-footer">
           <span class="modal-id" id="modal-id"></span>
-          <button class="modal-star-cta" id="modal-star-cta">
-            <svg viewBox="0 0 24 24" width="20" height="20" class="cta-star-icon"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="currentColor"/></svg>
-            <span id="star-cta-text">Star this Product</span>
-            <span class="cta-shine"></span>
-          </button>
+          <div class="modal-actions">
+            <button class="modal-cta modal-star-cta" id="modal-star-cta">
+              <svg viewBox="0 0 24 24" width="20" height="20" class="cta-star-icon"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="currentColor"/></svg>
+              <span id="star-cta-text">Star Product</span>
+              <span class="cta-shine"></span>
+            </button>
+            <a href="contact-us.html" class="modal-cta modal-contact-cta">
+              <svg viewBox="0 0 24 24" width="20" height="20"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/></svg>
+              <span>Enquire Now</span>
+              <span class="cta-shine"></span>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -237,16 +255,18 @@
         <ul class="footer-links">
           <li><a href="#heritage">Our Heritage</a></li>
           <li><a href="#catalog">Catalog</a></li>
-          <li><a href="#">Contact Us</a></li>
-          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="contact-us.html">Contact Us</a></li>
+          <li><a href="shipping-policy.html">Shipping Policy</a></li>
         </ul>
       </div>
       <div class="footer-col newsletter-col">
         <h4 class="footer-heading">Quirey</h4>
         <p class="newsletter-tag">Stay attuned to our latest treasures and stories.</p>
         <form class="newsletter-form" id="newsletter-form">
+          <input type="hidden" name="from_name" value="New Subscriber">
+          <input type="hidden" name="message" value="I would like to join the Quirey newsletter.">
           <div class="newsletter-input-wrap">
-            <input type="email" class="newsletter-input" placeholder="Your artisan email" required>
+            <input type="email" name="reply_to" class="newsletter-input" placeholder="Your artisan email" required>
             <button type="submit" class="newsletter-submit-btn">
               <span>Join</span>
               <svg viewBox="0 0 24 24" width="16" height="16"><path d="M5 12h14m-7-7l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -267,6 +287,46 @@
     <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 4l-8 8h5v8h6v-8h5z" fill="currentColor"/></svg>
   </button>
 
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function(){
+      emailjs.init({
+        publicKey: "SfA5XEHCsV5rzQwKW",
+      });
+    })();
+  </script>
+  <script>
+    const newsletterForm = document.getElementById('newsletter-form');
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        const btn = this.querySelector('.newsletter-submit-btn');
+        const originalContent = btn.innerHTML;
+        btn.innerHTML = '<span>Wait...</span>';
+        btn.disabled = true;
+
+        const serviceID = 'service_oqsy548';
+        const templateID = 'template_laqywdj'; 
+
+        emailjs.sendForm(serviceID, templateID, this)
+          .then(() => {
+            btn.innerHTML = '<span>Done!</span>';
+            alert('Welcome to Quirey. You are now attuned to our collection.');
+            newsletterForm.reset();
+            setTimeout(() => {
+              btn.innerHTML = originalContent;
+              btn.disabled = false;
+            }, 3000);
+          }, (error) => {
+            console.error('FAILED...', error);
+            alert('Oops! Could not subscribe. Please try again.');
+            btn.innerHTML = originalContent;
+            btn.disabled = false;
+          });
+      });
+    }
+  </script>
   <script src="script.js"></script>
 </body>
 </html>
