@@ -15,6 +15,8 @@
   let isListView = false;
   let favorites = JSON.parse(localStorage.getItem('klakoach_favorites') || '[]');
   let currentModalIndex = -1;
+  let modalList = [];
+  let productNumberWidth = 3;
 
   /* ─── DOM Refs ─── */
   const dom = {
@@ -23,6 +25,7 @@
     preloader: document.getElementById('preloader'),
     header: document.getElementById('site-header'),
     grid: document.getElementById('product-grid'),
+    bestsellerGrid: document.getElementById('bestseller-grid'),
     categoryFilters: document.getElementById('category-filters'),
     categoryCards: document.getElementById('category-cards'),
     footerCatLinks: document.getElementById('footer-cat-links'),
@@ -144,6 +147,12 @@
       toast.style.transform = 'translateX(-20px)';
       setTimeout(() => toast.remove(), 500);
     }, 3000);
+  }
+
+  function formatProductNumber(product) {
+    const num = Number(product?._displayNumber);
+    const safeNumber = Number.isFinite(num) && num > 0 ? num : 0;
+    return String(safeNumber).padStart(productNumberWidth, '0');
   }
 
   /* ══════════════════════════════════════════════════════
@@ -303,6 +312,37 @@
     });
     visibleCount = PAGE_SIZE;
     renderGrid();
+    renderBestsellers();
+  }
+
+  function renderBestsellers() {
+    if (!dom.bestsellerGrid) return;
+    const bestsellers = allProducts.slice(0, 8);
+    dom.bestsellerGrid.innerHTML = bestsellers.map((p, idx) => {
+      const isFav = favorites.includes(String(p.id));
+      return `
+        <article class="product-card reveal-on-scroll" data-id="${p.id}" tabindex="0">
+          <div class="card-image-wrapper">
+            <img class="card-image" src="${p.image_link}" alt="${p.item}" loading="lazy" onerror="this.src='${getThemePlaceholder(p._category)}'">
+            <span class="card-badge">${p._category}</span>
+            <button class="card-fav-mark ${isFav ? 'active' : ''}" onclick="event.stopPropagation(); toggleFavorite('${p.id}')">
+              <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" fill="${isFav ? 'var(--gold-300)' : 'rgba(255,255,255,0.5)'}"/></svg>
+            </button>
+          </div>
+          <div class="card-body">
+            <h3 class="card-title">${p.item}</h3>
+            <p class="card-desc">${p.description}</p>
+            <div class="card-footer">
+              <span class="card-id">No. ${formatProductNumber(p)}</span>
+              <button class="card-view-btn">View Details</button>
+            </div>
+          </div>
+        </article>`;
+    }).join('');
+
+    setTimeout(() => {
+      dom.bestsellerGrid.querySelectorAll('.product-card').forEach(c => c.classList.add('visible'));
+    }, 50);
   }
 
   function renderGrid() {
@@ -331,7 +371,7 @@
             <h3 class="card-title">${p.item}</h3>
             <p class="card-desc">${p.description}</p>
             <div class="card-footer">
-              <span class="card-id">№ ${String(p.id).padStart(3, '0')}</span>
+              <span class="card-id">No. ${formatProductNumber(p)}</span>
               <button class="card-view-btn">View Details</button>
             </div>
           </div>
@@ -372,8 +412,8 @@
   }
 
   function updateModalFavState() {
-    if (currentModalIndex === -1) return;
-    const p = filteredProducts[currentModalIndex];
+    if (currentModalIndex === -1 || modalList.length === 0) return;
+    const p = modalList[currentModalIndex];
     if (!p) return;
 
     const isFav = favorites.includes(String(p.id));
@@ -392,10 +432,11 @@
     }
   }
 
-  function openModal(idx) {
-    if (idx < 0 || idx >= filteredProducts.length) return;
+  function openModal(idx, list = filteredProducts) {
+    if (idx < 0 || idx >= list.length) return;
     currentModalIndex = idx;
-    const p = filteredProducts[idx];
+    modalList = list;
+    const p = list[idx];
 
     dom.modalImage.onerror = () => {
       dom.modalImage.onerror = null;
@@ -406,7 +447,7 @@
     dom.modalDescription.textContent = p.description;
     dom.modalCategory.textContent = p._category;
     dom.modalBadge.textContent = p._category;
-    dom.modalId.textContent = `Artefact № ${String(p.id).padStart(3, '0')}`;
+    dom.modalId.textContent = `Artefact No. ${formatProductNumber(p)}`;
 
     updateModalFavState();
     dom.modal.classList.add('active');
@@ -422,9 +463,9 @@
 
   function navigateModal(dir) {
     let nextIdx = currentModalIndex + dir;
-    if (nextIdx < 0) nextIdx = filteredProducts.length - 1;
-    if (nextIdx >= filteredProducts.length) nextIdx = 0;
-    openModal(nextIdx);
+    if (nextIdx < 0) nextIdx = modalList.length - 1;
+    if (nextIdx >= modalList.length) nextIdx = 0;
+    openModal(nextIdx, modalList);
   }
 
   /* ══════════════════════════════════════════════════════
@@ -472,9 +513,21 @@
       if (card) {
         const id = card.dataset.id;
         const idx = filteredProducts.findIndex(p => String(p.id) === id);
-        openModal(idx);
+        openModal(idx, filteredProducts);
       }
     });
+
+    if (dom.bestsellerGrid) {
+      dom.bestsellerGrid.addEventListener('click', e => {
+        const card = e.target.closest('.product-card');
+        if (card) {
+          const id = card.dataset.id;
+          const bestsellers = allProducts.slice(0, 8);
+          const idx = bestsellers.findIndex(p => String(p.id) === id);
+          if (idx !== -1) openModal(idx, bestsellers);
+        }
+      });
+    }
 
     dom.modalClose.addEventListener('click', closeModal);
     dom.modal.addEventListener('click', e => {
@@ -482,13 +535,15 @@
     });
 
     dom.modalStarCTA.addEventListener('click', () => {
-      const p = filteredProducts[currentModalIndex];
+      if (currentModalIndex === -1 || modalList.length === 0) return;
+      const p = modalList[currentModalIndex];
       if (p) toggleFavorite(p.id);
     });
     dom.modalPrev.addEventListener('click', () => navigateModal(-1));
     dom.modalNext.addEventListener('click', () => navigateModal(1));
     dom.modalFav.addEventListener('click', () => {
-      const p = filteredProducts[currentModalIndex];
+      if (currentModalIndex === -1 || modalList.length === 0) return;
+      const p = modalList[currentModalIndex];
       if (p) toggleFavorite(p.id);
     });
 
@@ -555,14 +610,17 @@
       const raw = parseCSV(text.replace(/^\uFEFF/, ''));
       allProducts = raw
         .filter(d => d.id && d.item)
-        .map(d => ({
+        .map((d, index) => ({
           ...d,
           id: String(d.id).trim(),
+          _displayNumber: index + 1,
           item: String(d.item || '').trim(),
           description: String(d.description || '').trim(),
           image_link: String(d.image_link || '').trim(),
           _category: cleanCategory(d.category) || 'Uncategorized'
         }));
+
+      productNumberWidth = Math.max(3, String(allProducts.length).length);
 
       if (allProducts.length === 0) {
         throw new Error('CSV loaded but no valid products were found.');
